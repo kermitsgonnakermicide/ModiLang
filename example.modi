@@ -1,0 +1,9 @@
+Bhaiyon aur Beheno
+
+Yaad rakhiye desh ka "India"
+Yaad rakhiye growth ka 2047
+
+Mitron! boliye desh
+Mitron! boliye "Vision: " + desh + ", Year: " + str(growth)
+
+Acche din aa gaye hai
