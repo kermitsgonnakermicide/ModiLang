@@ -1,9 +1,17 @@
 Bhaiyon aur Beheno
 
-Yaad rakhiye desh ka "India"
-Yaad rakhiye growth ka 2047
+Vikas hai desh: str ka "bilal"
+Vikas hai ligma: int ka 69420
+Vikas hai growth: float ka 7.5
+Vikas hai is_superpower: bool ka True
 
-Mitron! boliye desh
-Mitron! boliye "Vision: " + desh + ", Year: " + str(growth)
+Mitron! boliye desh + " sigma banega"
+Mitron! boliye str(ligma + 1_000_000)
+
+Yojana badhao(x: int, y: int) -> int:
+    Wapas dijiye x + y
+
+Vikas hai total: int ka Yojana se labh lein badhao(10, 32)
+Mitron! boliye total
 
 Acche din aa gaye hai
