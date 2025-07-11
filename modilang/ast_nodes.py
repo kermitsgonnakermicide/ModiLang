@@ -33,4 +33,16 @@ class ApiRequest:
     url: str
     data: Optional[str] = None
 
+@dataclass
+class IfStmt:
+    condition: str
+    then_body: List[Any]
+    else_body: Optional[List[Any]] = None
+
+@dataclass
+class ForLoop:
+    count_expr: str
+    body: List[Any]
+
+
 Statement = Any
