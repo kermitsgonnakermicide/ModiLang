@@ -1,21 +1,21 @@
-
 from modilang.ast_nodes import *
 from modilang.types import check_type
 import math
+import requests
 
 class ModiLangInterpreter:
     def __init__(self, statements):
         self.statements = statements
         self.env = {}
         self.functions = {}
-        self.builtins = {"math": math, "str": str}
+        self.builtins = {"math": math, "str": str, "dict": dict}
 
     def eval_expr(self, expr):
         return eval(expr, {**self.builtins}, self.env)
 
     def execute_function(self, f: FunctionDecl, args):
         if len(args) != len(f.args):
-            raise ValueError("Argument count congressi hai")
+            raise ValueError("Argument count congressi")
         local_env = self.env.copy()
         for (name, typ), val_expr in zip(f.args, args):
             val = self.eval_expr(val_expr)
@@ -42,6 +42,17 @@ class ModiLangInterpreter:
             elif isinstance(stmt, FunctionCall):
                 func = self.functions.get(stmt.name)
                 if not func:
-                    raise NameError(f"Function {stmt.name} congressi hai!")
+                    raise NameError(f"Function {stmt.name} saala congressi")
                 result = self.execute_function(func, stmt.args)
                 self.env['_'] = result
+            elif isinstance(stmt, ApiRequest):
+                url = self.eval_expr(stmt.url)
+                data = self.eval_expr(stmt.data) if stmt.data else None
+                if stmt.method == "GET":
+                    response = requests.get(url)
+                elif stmt.method == "POST":
+                    response = requests.post(url, json=data)
+                else:
+                    raise ValueError(f"Congressi method {stmt.method}")
+                self.env['response'] = response.text
+                print("NaMo Response:", response.status_code, response.text)

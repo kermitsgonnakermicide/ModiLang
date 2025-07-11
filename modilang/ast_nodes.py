@@ -27,4 +27,10 @@ class FunctionCall:
 class ReturnStmt:
     expr: str
 
+@dataclass
+class ApiRequest:
+    method: str
+    url: str
+    data: Optional[str] = None
+
 Statement = Any
