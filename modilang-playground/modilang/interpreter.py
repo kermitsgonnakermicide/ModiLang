@@ -1,5 +1,5 @@
-from ast_nodes import *
-from types import check_type
+from modilang.ast_nodes import *
+from modilang.types import check_type
 import math
 import requests
 

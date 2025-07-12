@@ -1,4 +1,3 @@
-
 import argparse
 from modilang.parser import ModiLangParser
 from modilang.interpreter import ModiLangInterpreter
