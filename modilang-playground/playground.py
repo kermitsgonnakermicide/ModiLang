@@ -7,7 +7,7 @@ import io
 st.set_page_config(page_title="ModiLang Playground", layout="centered")
 
 st.title("ModiLang Playground")
-st.caption("under the MIT License")
+st.caption("Made in India, lmao")
 
 default_code = '''Bhaiyon aur Beheno
 Vikas hai x: int ka 10
