@@ -1,4 +1,4 @@
-# ModiLang 🇮🇳
+# ModiLang
 
 **ModiLang** is a statically typed, satirical programming language based on the lexicon of Indian Prime Minister Narendra Modi
 
