@@ -31,6 +31,8 @@ class ModiLangParser:
                 statements.append(decl)
             elif line.startswith("Yojana se labh lein"):
                 m = re.match(r"Yojana se labh lein (\w+)\((.*)\)", line)
+                if not m:
+                    raise SyntaxError(f"Invalid Yojana se labh lein syntax: {line}")
                 fname, args = m.groups()
                 arg_list = [arg.strip() for arg in args.split(",") if arg.strip()]
                 statements.append(FunctionCall(fname, arg_list))
@@ -94,16 +96,42 @@ class ModiLangParser:
             if line == "Nahi toh:":
                 self.pos += 1
                 break
-            elif line.startswith(("Mitron! boliye", "Wapas dijiye", "Yojana se labh lein")):
-                then_body.append(self.parse()[0])
+            elif line.startswith("Mitron! boliye"):
+                expr = line.replace("Mitron! boliye", "", 1).strip()
+                then_body.append(PrintStmt(expr))
+                self.pos += 1
+            elif line.startswith("Wapas dijiye"):
+                expr = line.replace("Wapas dijiye", "", 1).strip()
+                then_body.append(ReturnStmt(expr))
+                self.pos += 1
+            elif line.startswith("Yojana se labh lein"):
+                m = re.match(r"Yojana se labh lein (\w+)\((.*)\)", line)
+                if not m:
+                    raise SyntaxError(f"Invalid Yojana se labh lein syntax: {line}")
+                fname, args = m.groups()
+                arg_list = [arg.strip() for arg in args.split(",") if arg.strip()]
+                then_body.append(FunctionCall(fname, arg_list))
+                self.pos += 1
             else:
                 break
-            self.pos += 1
         else_body = []
         while self.pos < len(self.lines):
             line = self.lines[self.pos]
-            if line.startswith(("Mitron! boliye", "Wapas dijiye", "Yojana se labh lein")):
-                else_body.append(self.parse()[0])
+            if line.startswith("Mitron! boliye"):
+                expr = line.replace("Mitron! boliye", "", 1).strip()
+                else_body.append(PrintStmt(expr))
+                self.pos += 1
+            elif line.startswith("Wapas dijiye"):
+                expr = line.replace("Wapas dijiye", "", 1).strip()
+                else_body.append(ReturnStmt(expr))
+                self.pos += 1
+            elif line.startswith("Yojana se labh lein"):
+                m = re.match(r"Yojana se labh lein (\w+)\((.*)\)", line)
+                if not m:
+                    raise SyntaxError(f"Invalid Yojana se labh lein syntax: {line}")
+                fname, args = m.groups()
+                arg_list = [arg.strip() for arg in args.split(",") if arg.strip()]
+                else_body.append(FunctionCall(fname, arg_list))
                 self.pos += 1
             else:
                 break
